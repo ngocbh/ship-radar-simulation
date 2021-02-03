@@ -5,9 +5,11 @@ import time
 from risk_assessment_model import vessel as vessel_dict, assess_risk
 from utils import ang_dis_to_coo
 from vessel import Vessel
+from target import Target
+from utils import rand
 
 """ This module draws the radar screen """
-dis_thresh = 300
+dis_thresh = 350
 vessel = Vessel(vessel_dict)
 
 def draw_arrow(screen, colour, start, end, arrow_size=10):
@@ -23,7 +25,7 @@ def draw_target(radarDisplay, target, x, y, fontRenderer):
     rel_x = math.cos(math.radians(target.direction)) * target.velocity
     rel_y = math.sin(math.radians(target.direction)) * target.velocity
     draw_arrow(radarDisplay, target.color, (x, y), (x-rel_x, y-rel_y), arrow_size=8)
-    text = fontRenderer.render("{} knots".format(target.velocity), 1, colors.green)
+    text = fontRenderer.render("{} miles/h".format(target.velocity), 1, colors.green)
     radarDisplay.blit(text,(x+10,y))
 
 def sigmoid(x):
@@ -35,7 +37,7 @@ def get_risk(targets):
         if targets[an].sus:
             no_sus_ships += 1
     vessel_score = assess_risk(vessel_dict) 
-    return sigmoid(0.7 * (vessel_score - 0.5) + no_sus_ships ) * 100, no_sus_ships
+    return sigmoid(2 * (vessel_score - 0.5) + 2 * no_sus_ships ) * 100, no_sus_ships
 
 def draw(radarDisplay, targets, angle, distance, fontRenderer):
      # draw initial screen
@@ -128,17 +130,20 @@ def draw(radarDisplay, targets, angle, distance, fontRenderer):
     # draw stastics board
     pygame.draw.rect(radarDisplay, colors.blue, [1120, 20, 250, 140], 2)
 
-    text = fontRenderer.render("Lon : {}".format(vessel.lon), 1, colors.white)
+    text = fontRenderer.render("Lon : {:.05f}".format(vessel.lon), 1, colors.white)
     radarDisplay.blit(text,(1140,40))
 
-    text = fontRenderer.render("Lat : {}".format(vessel.lat), 1, colors.white)
+    text = fontRenderer.render("Lat : {:.05f}".format(vessel.lat), 1, colors.white)
     radarDisplay.blit(text,(1140,80))
 
-    text = fontRenderer.render("Velocity: {} knots".format(vessel.velocity), 1, colors.white)
+    text = fontRenderer.render("Velocity: {} miles/h".format(vessel.velocity), 1, colors.white)
     radarDisplay.blit(text,(1140,120))
 
     # vessel.lon += 0.00013945 # vessel.velocity * 0.01
-    vessel.lon +=  vessel.velocity * 0.01 / 3600
+    vessel.lon +=  vessel.velocity * 0.001 / 3600
+    vessel.lat +=  vessel.velocity * 0.005 / 36000
+    if rand.random() < 0.05:
+        vessel.velocity = 41 - vessel.velocity
     # draw targets
     # angle
     for an in list(targets):
@@ -172,6 +177,17 @@ def draw(radarDisplay, targets, angle, distance, fontRenderer):
         # elif diffTime > 3.0:
         #     del targets[an]
             
+    if rand.random() < 0.006:
+        angel = rand.randint(0,360) 
+        distance = 350        
+        direction = rand.randint(0, 360)
+        verified = True if rand.randint(0, 4) < 4 else False
+        verified = verified or (num_sus_ships > 4)
+        if not verified:
+            direction = angel - 180 + rand.randint(3,15)
+        velocity = rand.randint(17, 26)
+        new_target = Target(angel, distance, direction, velocity, verified)
+        targets[angel] = new_target
     # update the screen
     pygame.display.update()
     

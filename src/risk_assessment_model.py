@@ -11,7 +11,7 @@ data_path = './data/clean_pirate_attacks_dataset.csv'
 encoders = pickle.load(open(encoders_path, 'rb'))
 model = pickle.load(open(model_path, 'rb'))
 df = pd.read_csv(data_path)
-vessel = df.iloc[1].to_dict()
+vessel = df.iloc[-20].to_dict()
 vessel['velocity'] = 20
 print(vessel)
 

@@ -48,11 +48,11 @@ GPIO.setup(ECHO, GPIO.IN)
 targets = {
     20:Target(20, 200, 150, 13, True), 
     35:Target(35, 150, 0, 22, True), 
-    50:Target(50, 250, -137, 30), 
+    50:Target(50, 250, -137, 30, True), 
     60:Target(60, 300, 90, 23, True), 
-    80:Target(80, 80, 125, 24), 
-    110:Target(110, 300, -60, 17), 
-    140:Target(140, 200, -30, 29), 
+    # 80:Target(80, 80, 125, 24, True), 
+    # 110:Target(110, 300, -60, 17, True), 
+    # 140:Target(140, 200, -30, 29, True), 
     160:Target(160, 150, -15, 19, True)
 }
 
