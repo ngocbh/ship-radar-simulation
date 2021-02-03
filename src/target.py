@@ -36,7 +36,7 @@ class Target:
         new_x, new_y = ang_dis_to_coo(self.direction, dis, x_center, y_center)
         print(new_x, new_y)
         if self.verified:
-            new_y += 0.5
+            new_y += 0.2
         self.distance = distance.euclidean((new_x, new_y), (700, 400))
         # if abs(700-new_x) < 1:
         self.angle = math.degrees(math.acos((700-new_x)/self.distance))

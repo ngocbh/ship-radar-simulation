@@ -7,7 +7,7 @@ from utils import ang_dis_to_coo
 from vessel import Vessel
 
 """ This module draws the radar screen """
-dis_thresh = 600
+dis_thresh = 300
 vessel = Vessel(vessel_dict)
 
 def draw_arrow(screen, colour, start, end, arrow_size=10):
@@ -40,32 +40,35 @@ def get_risk(targets):
 def draw(radarDisplay, targets, angle, distance, fontRenderer):
      # draw initial screen
     radarDisplay.fill(colors.black)
+    # pygame.draw.circle(radarDisplay, colors.green, (700,400), 400, 1)
 
-    pygame.draw.circle(radarDisplay, colors.green, (700,400), 600, 1)
-
-    pygame.draw.circle(radarDisplay, colors.green, (700,400), 500, 1)
-
-    pygame.draw.circle(radarDisplay, colors.green, (700,400), 400, 1)
+    pygame.draw.circle(radarDisplay, colors.green, (700,400), 350, 1)
 
     pygame.draw.circle(radarDisplay, colors.green, (700,400), 300, 1)
 
+    pygame.draw.circle(radarDisplay, colors.green, (700,400), 250, 1)
+
     pygame.draw.circle(radarDisplay, colors.green, (700,400), 200, 1)
 
+    pygame.draw.circle(radarDisplay, colors.green, (700,400), 150, 1)
+
     pygame.draw.circle(radarDisplay, colors.green, (700,400), 100, 1)
+
+    pygame.draw.circle(radarDisplay, colors.green, (700,400), 50, 1)
 
     pygame.draw.circle(radarDisplay, colors.white, (700,400), 5)
 
     radarDisplay.fill(colors.black, [0, 785, 1400, 20])
 
     # horizental line
-    pygame.draw.line(radarDisplay, colors.green, (30, 400), (1370, 400), 1)
+    pygame.draw.line(radarDisplay, colors.green, (300, 400), (1100, 400), 1)
     # pygame.draw.line(radarDisplay, colors.green, (30, 750), (1370, 750), 1)
 
     # 45 degree line
     # pygame.draw.line(radarDisplay, colors.green, (1100, 800),(205, 285-400), 1)
 
     # 90 degree line
-    pygame.draw.line(radarDisplay, colors.green, (700, 800), (700, 0), 1)
+    pygame.draw.line(radarDisplay, colors.green, (700, 800), (700, 10), 1)
 
     # 135 degree line
     # pygame.draw.line(radarDisplay, colors.green, (700, 780), (1195, 285), 1)
@@ -93,8 +96,8 @@ def draw(radarDisplay, targets, angle, distance, fontRenderer):
     # radarDisplay.blit(text,(1365,400))
 
     # draw the moving line
-    a = math.sin(math.radians(angle)) * 700.0
-    b = math.cos(math.radians(angle)) * 700.0
+    a = math.sin(math.radians(angle)) * 400.0
+    b = math.cos(math.radians(angle)) * 400.0
     pygame.draw.line(radarDisplay, colors.green, (700, 400), (700 - int(b), 400 - int(a)), 3)
 
     # draw stastics board
@@ -123,18 +126,19 @@ def draw(radarDisplay, targets, angle, distance, fontRenderer):
     radarDisplay.blit(text,(40,160))
 
     # draw stastics board
-    pygame.draw.rect(radarDisplay, colors.blue, [1210, 20, 170, 140], 2)
+    pygame.draw.rect(radarDisplay, colors.blue, [1120, 20, 250, 140], 2)
 
     text = fontRenderer.render("Lon : {}".format(vessel.lon), 1, colors.white)
-    radarDisplay.blit(text,(1230,40))
+    radarDisplay.blit(text,(1140,40))
 
     text = fontRenderer.render("Lat : {}".format(vessel.lat), 1, colors.white)
-    radarDisplay.blit(text,(1230,80))
+    radarDisplay.blit(text,(1140,80))
 
     text = fontRenderer.render("Velocity: {} knots".format(vessel.velocity), 1, colors.white)
-    radarDisplay.blit(text,(1230,120))
+    radarDisplay.blit(text,(1140,120))
 
-    vessel.lon += 0.00013945
+    # vessel.lon += 0.00013945 # vessel.velocity * 0.01
+    vessel.lon +=  vessel.velocity * 0.01 / 3600
     # draw targets
     # angle
     for an in list(targets):
