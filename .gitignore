@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.vim
 
 .DS_Store
 *.DS_Store
