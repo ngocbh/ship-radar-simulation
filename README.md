@@ -1,6 +1,8 @@
 # Ship radar simulation
 A simple simulation for on-board radar system. Based on the behavior of the surrounding ships, a risk assessment model is proposed to assess the chance of being attacked by pirate ship.
 
+This is a part of our project in [ASEAN-Indian Hackathon](https://india-asean.mic.gov.in/) .
+
 ## How it looks
 
 ![alt tag](https://github.com/ngocjr7/ship-radar-simulation/blob/master/demo.png?raw=true)
