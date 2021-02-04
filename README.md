@@ -3,7 +3,7 @@ A simple simulation for on-board radar system. Based on the behavior of the surr
 
 ## How it looks
 
-![alt tag](https://raw.githubusercontent.com/ship-radar-simulation/master/demo.png)
+![alt tag](https://github.com/ngocjr7/ship-radar-simulation/blob/master/demo.png?raw=true)
 
 ## How to run
 
