@@ -29,11 +29,11 @@ We proposed a simple regression model to assess the risk score of a particular s
 * Input: A ship and its current information
 * Output: A chance of being attacked
 
-#### Drawback
+<!-- Drawback
 * The model do not use lat, lon so far. Only use ocean area and place.
 
 * The above model cannot capture the current circumstances of the ship. For example, the situation in which three ships approach us is more at risk than no one around. 
 
 Then I add a simple `sigmoid` function with hand-tuned weight to capture the both number of suspicious ships around us with current risky from the previous risk assessment model. 
 
-In the real-life application, we can deploy this system and collect datasets from the operating ships to improve this model. From the collected data, we can analyze more closely the behavioral features of the surrounding ships like the direction of the ship (stable or keep towards us or forestalling us). Theretofore, we can integrate both features of past attacks and the current circumstances into a single risk assessment model.
+In the real-life application, we can deploy this system and collect datasets from the operating ships to improve this model. From the collected data, we can analyze more closely the behavioral features of the surrounding ships like the direction of the ship (stable or keep towards us or forestalling us). Theretofore, we can integrate both features of past attacks and the current circumstances into a single risk assessment model. -->
